@@ -27,6 +27,9 @@ class handleAlerts:
         confAlert = driver.switch_to.alert
         print(confAlert.text)
         confAlert.dismiss()
+        # alertText = driver.find_element_by_id("confirm-demo").text
+        # print(alertText)
+        driver.find_element(By.ID, "confirm-demo")
         print(driver.find_element(By.ID, "confirm-demo").text)
         driver.find_element(By.CLASS_NAME, "btn.btn-default.btn-lg").click()
         time.sleep(1)
@@ -46,11 +49,12 @@ class handleAlerts:
         driver.find_element(By.XPATH, "//button[text()='Click for Prompt Box']").click()
         time.sleep(1)
         promptAlert.send_keys("Shrinivas")
+
         promptAlert.accept()
         print(driver.find_element(By.ID, "prompt-demo").text)
 
 
 ha = handleAlerts()
-# ha.handleSimpleAlert()
-# ha.handleConfirmationAlert()
+ha.handleSimpleAlert()
+ha.handleConfirmationAlert()
 ha.handleInputAlert()

@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, ElementNotSelectableException
 from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.support import expected_conditions as EC
@@ -23,16 +24,25 @@ class execute1:
         self.driver.find_element_by_id("btnLogin").click()
         # self.driver.find_element(By.LINK_TEXT,"Welcome Admin").click()
         # time.sleep(3)
-        eleWelcomeLink = self.driver.find_element(By.ID,"welcome")
+        # eleWelcomeLink = self.driver.find_element(By.ID,"welcome")
         wait = WebDriverWait(self.driver, 10)
-        # wait.until(EC.element_to_be_clickable(By.ID,"welcome"))
-        welcomeLink = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID,"welcome"))).click()
+        eleWelcomeLink = wait.until(EC.element_to_be_clickable((By.ID,"welcome")))
+        eleWelcomeLink.click()
+
+        # wait = WebDriverWait(self.driver, 10, poll_frequency=1,
+        #                      ignored_exceptions=[NoSuchElementException,
+        #                                          ElementNotVisibleException,
+        #                                          ElementNotSelectableException])
+
+        # welcomeLink = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.PARTIAL_LINK_TEXT,"Welcome ")))
         # welcomeLink.click()
-        self.driver.find_element(By.ID,"welcome").click()
-        time.sleep(3)
+        # self.driver.find_element(By.ID,"welcome").click()
+        # time.sleep(3)
         # self.driver.find_element(By.LINK_TEXT, "About").click()
         # self.driver.find_element_by_id("aboutDisplayLink"). click()
-        self.driver.find_element(By.ID,"aboutDisplayLink").click()
+        aboutLink = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.ID,"aboutDisplayLink")))
+        aboutLink.click()
+        # self.driver.find_element(By.ID,"aboutDisplayLink").click()
         info = self.driver.find_element_by_name("frmSelectEmployees").text
         print(info)
 

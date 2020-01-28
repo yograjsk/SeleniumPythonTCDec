@@ -17,6 +17,8 @@ class Employee:
         print(self.__age)
 
 emp = Employee("Bill", 10000)
+print("via name mangling")
+print(emp._Employee__age)
 emp.empInfo()
 emp.setAge(60)
 emp.empInfo()

@@ -20,7 +20,7 @@ class OrangeHRM:
         self.url = "https://opensource-demo.orangehrmlive.com"
         self.users_url = "https://opensource-demo.orangehrmlive.com/index.php/admin/viewSystemUsers"
 
-    def scenario1(self):
+    def login(self):
         self.driver.get(self.url)
         self.driver.find_element(By.NAME, "txtUsername").send_keys("admin")
         self.driver.find_element(By.NAME, "txtPassword").send_keys("admin123")
@@ -28,6 +28,15 @@ class OrangeHRM:
         time.sleep(2)
         logedIn = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Welcome ").is_displayed()
         print("logged in into application: ", logedIn)
+
+    def scenario1(self):
+        # self.driver.get(self.url)
+        # self.driver.find_element(By.NAME, "txtUsername").send_keys("admin")
+        # self.driver.find_element(By.NAME, "txtPassword").send_keys("admin123")
+        # self.driver.find_element(By.ID, "btnLogin").click()
+        # time.sleep(2)
+        # logedIn = self.driver.find_element(By.PARTIAL_LINK_TEXT, "Welcome ").is_displayed()
+        # print("logged in into application: ", logedIn)
         self.driver.get(self.users_url)
 
         userRole_dropdown = Select(self.driver.find_element(By.ID, "searchSystemUser_userType"))
@@ -45,6 +54,27 @@ class OrangeHRM:
         print("search results count:", counter)
         # print(usernames)
 
-o = OrangeHRM()
-o.scenario1()
+    def scenario_Upload(self):
+        self.driver.get("https://opensource-demo.orangehrmlive.com/index.php/admin/pimCsvImport")
+        self.driver.find_element(By.ID, "pimCsvImport_csvFile").send_keys("C:/uploadTestFile/importData(2).csv")
+        # uploadFile = self.driver.find_element(By.ID, "pimCsvImport_csvFile")
+        # uploadFile.send_keys("C:/uploadTestFile/importData(2).csv")
+        self.driver.find_element(By.ID, "btnSave").click()
+        time.sleep(5)
+        msg = self.driver.find_element(By.CLASS_NAME, "inner").text
+        print(msg)
 
+    def scenario_Download(self):
+        self.driver.get("https://opensource-demo.orangehrmlive.com/index.php/admin/pimCsvImport")
+        self.driver.find_element(By.CLASS_NAME, "download").click()
+        time.sleep(5)
+        # msg = self.driver.find_element(By.CLASS_NAME, "inner").text
+        # print(msg)
+
+
+
+o = OrangeHRM()
+# o.scenario1()
+o.login()
+o.scenario_Upload()
+o.scenario_Download()

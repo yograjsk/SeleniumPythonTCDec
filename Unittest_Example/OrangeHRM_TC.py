@@ -72,7 +72,7 @@ class OrangeHRM:
 
 # Xpath for checkbox://a[text()='fiona.grace']//../..//input
 # Xpath for checkbox:
-        name = "//a[text()='" + newUsername + "']//../..//input"
+#         name = "//a[text()='" + newUsername + "']//../..//input"
 
 
 web = OrangeHRM()

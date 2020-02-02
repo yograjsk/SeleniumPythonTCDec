@@ -1,12 +1,12 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 import time
 import unittest
-
+from Unittest_Example.Utilities import Utilities
+from Unittest_Example.OR import ObjectRepository
 
 class OrangeHRM(unittest.TestCase):
-
-
 
     @classmethod
     def setUpClass(cls):
@@ -14,7 +14,7 @@ class OrangeHRM(unittest.TestCase):
         global newUsername
 
         pwd = "Apple123"
-        newUsername = "powernew1"
+        newUsername = "powernew3"
 
         cls.browser = webdriver.Chrome(executable_path="../drivers/chromedriver.exe")
         cls.url = "https://opensource-demo.orangehrmlive.com/"
@@ -26,14 +26,33 @@ class OrangeHRM(unittest.TestCase):
         cls.browser.quit()
 
     def setUp(self):
+        util = Utilities()
+        objRepo = ObjectRepository()
+
         print(">>> running setUp: login")
         self.browser.get(self.url)
         print("Launching the orangehrm ")
         print(self.browser.title)
         time.sleep(2)
-        self.browser.find_element_by_id("txtUsername").send_keys('admin')
-        self.browser.find_element_by_id("txtPassword").send_keys('admin123')
-        self.browser.find_element_by_id("btnLogin").click()
+
+
+        # Enhancement2 - using the object repository structure
+        util.passValue("id", objRepo.username_txt_id, "admin", self.browser)                              #byType, byValue, valueToPass, driver
+        util.passValue("id", objRepo.password_txt_id, "admin123", self.browser)
+        util.clickElement("id", objRepo.login_btn_id, self.browser)
+
+        # Enhancement 1 - created util class and using methods of it
+        # util.passValue("id", "txtUsername", "admin", self.browser)                              #byType, byValue, valueToPass, driver
+        # util.passValue("id", "txtPassword", "admin123", self.browser)
+        # util.clickElement("id", "btnLogin", self.browser)
+
+        # Initial line of code
+        # self.browser.find_element_by_id("txtUsername").send_keys('admin')
+        # self.browser.find_element_by_id("txtPassword").send_keys('admin123')
+        # self.browser.find_element_by_id("btnLogin").click()
+
+
+
         welcomeadmin = self.browser.find_element_by_id("welcome").is_displayed()
         print("logged in is displayed : ", welcomeadmin)
         # open the User url
@@ -94,6 +113,7 @@ class OrangeHRM(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 
 # Xpath for checkbox://a[text()='fiona.grace']//../..//input
 #         name = "//a[text()='" + newUsername + "']//../..//input"

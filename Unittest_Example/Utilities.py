@@ -58,6 +58,33 @@ class Utilities:
         # elif byType is "xpath":
         #     driver.find_element(By.XPATH, byValue).send_keys(valueToPass)
 
+    def readProperties(self, propPath):
+        properties = {}
+
+        with open(propPath, 'r') as f:
+            for line in f:
+                lineText = line.rstrip()
+                if ("=" not in lineText or lineText.startswith("#")): continue
+                k, v = lineText.split("=",1)
+                properties[k] = v
+        print(properties)
+        return properties
+
+    def getBrowser(self, browserName):
+        if browserName == "Chrome":
+            self.browser = webdriver.Chrome(executable_path="../drivers/chromedriver.exe")
+        elif browserName == "Firefox":
+            self.browser = webdriver.Firefox(executable_path="../drivers/geckodriver.exe")
+        elif browserName == "IE":
+            self.browser = webdriver.Ie(executable_path="../drivers/IEDriverServer_64.exe")
+        else:
+            self.browser = None
+        # self.browser.implicitly_wait(60)
+        return self.browser
+
+
+
+
 
 '''
 properties file info:

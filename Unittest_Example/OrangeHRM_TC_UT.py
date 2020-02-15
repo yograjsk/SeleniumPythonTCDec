@@ -19,8 +19,6 @@ class OrangeHRM(unittest.TestCase):
         browser = cls.config["browserName"]
         timeout = int(cls.config["timeout"])
 
-        pwd = "Apple123"
-        newUsername = "powernew4"
         # cls.browser = webdriver.Chrome(executable_path="../drivers/chromedriver.exe")
 
         cls.browser = cls.util.getBrowser(browser)
@@ -89,6 +87,8 @@ class OrangeHRM(unittest.TestCase):
         print("search results count:", counter)
 
     def test_2_AddUsername(self):
+        pwd = "Apple123"
+        newUsername = "powernew4"
         print(">>> running test2: add user")
         self.browser.get(self.user_url)
         self.browser.find_element_by_name("btnAdd").click()
@@ -103,6 +103,8 @@ class OrangeHRM(unittest.TestCase):
         print("Username is saved ")
 
     def test_3_EditUser(self):
+        pwd = "Apple123"
+        newUsername = "powernew4"
         print(">>> running test3: edit user")
         self.browser.get(self.user_url)
         time.sleep(5)
@@ -115,6 +117,7 @@ class OrangeHRM(unittest.TestCase):
         print("Saved the username")
 
     def test_4_DeleteUser(self):
+        newUsername = "powernew4"
         print(">>> running test4: delete user")
         self.browser.get(self.user_url)
         self.browser.find_element_by_xpath("//a[text()='" + newUsername + "']//../..//input").click()

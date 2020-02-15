@@ -82,6 +82,10 @@ class Utilities:
         # self.browser.implicitly_wait(60)
         return self.browser
 
+    def closeBrowser(self, browserInstance):
+        print("closing browser instance....")
+        browserInstance.quit()
+        print("closed browser instance....")
 
 
 
